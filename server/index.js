@@ -12,9 +12,10 @@ app.use('/image', express.static('./image'));
 //body안읽히는거 아래 추가해서 해결
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 //post.js 분리시킨거 사용
 app.use('/api/post', require('./Router/post'));
+
+app.use('/api/user', require('./Router/user'));
 
 //서버 열고
 app.listen(port, () => {
