@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { LoginDiv } from '../../Style/UserCSS';
 
 import firbase from '../../firebase';
-import { async } from '@firebase/util';
 
 import axios from 'axios';
 
