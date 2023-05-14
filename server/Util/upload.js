@@ -5,16 +5,16 @@ const path = require('path');
 
 const endpoint = new AWS.Endpoint('https://kr.object.ncloudstorage.com');
 const region = 'kr-standard';
-const access_key = 'sF9aw8thFxZ3jNadwZDp';
-const secret_key = 'oQBl2aaGHatyzYUkHjlK17WZlVzwWrPBMIzBPtnx';
+
+const config = require('../config/key');
 
 //네이버 클라우드 카피
 const S3 = new AWS.S3({
   endpoint: endpoint,
   region: region,
   credentials: {
-    accessKeyId: access_key,
-    secretAccessKey: secret_key,
+    accessKeyId: config.access_key,
+    secretAccessKey: config.secret_key,
   },
 });
 

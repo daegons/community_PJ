@@ -4,6 +4,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const app = express();
 const port = 5000;
+const config = require('./config/key');
 
 app.use(express.static(path.join(__dirname, '../client/build')));
 //이미지 사용 경로 지정
@@ -19,9 +20,7 @@ app.use('/api/post', require('./Router/post'));
 app.listen(port, () => {
   //몽고DB와 연결
   mongoose
-    .connect(
-      'mongodb+srv://qzom1425:thdeorhSSqzom~142536@cluster0.73hfjuf.mongodb.net/Community?retryWrites=true&w=majority'
-    ) //정상 연결 되면 .then으로...
+    .connect(config.mongoURI) //정상 연결 되면 .then으로...
     .then(() => {
       console.log(`Example app listening on port ${port}`);
       console.log('몽고DB와 연결중..');
