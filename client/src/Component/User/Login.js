@@ -28,6 +28,7 @@ const Login = () => {
         seteRrorMsg("로그인이 실패하였습니다.");
       }
     }
+    alert("로그인 되었습니다.");
   };
 
   //errorMsg에 변화 있을 때 3초뒤에 에러 메시지 초기화

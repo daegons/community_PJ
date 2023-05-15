@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
 import "./App.css";
 //reduce
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { clearUser, loginUser } from "./Reducer/userSlice";
 //firebase
 import firebase from "./firebase";
@@ -17,7 +17,7 @@ import Register from "./Component/User/Register";
 
 function App() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+  // console.log(user.displayName);
   useEffect(() => {
     //onAuthStateChanged 사용자의 상태 변화에 따라 추적 함수..
     firebase.auth().onAuthStateChanged((userInfo) => {
@@ -32,16 +32,14 @@ function App() {
     });
   }, []);
 
-  useEffect(() => {
-    console.log("====================================");
-    console.log("user : ", user);
-    console.log("====================================");
-  }, [user]);
+  // useEffect(() => {
+  //   console.log("user : ", user);
+  // }, [user]);
 
-  useEffect(() => {
-    //signOut() firebase 로그아웃 시키는 함수
-    firebase.auth().signOut();
-  }, []);
+  // useEffect(() => {
+  //   //signOut() firebase 로그아웃 시키는 함수
+  //   firebase.auth().signOut();
+  // }, []);
 
   return (
     <>

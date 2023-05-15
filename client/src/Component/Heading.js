@@ -1,16 +1,26 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 //bootstrap
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import { useSelector } from "react-redux";
+import firebase from "firebase/compat/app";
 
 const Heading = () => {
   const font = { fontFamily: "'Yeon Sung', cursive" };
+  const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    firebase.auth().signOut();
+    alert("로그아웃 되었습니다.");
+    navigate("/");
+  };
   return (
     <Navbar bg="dark" expand="md" variant="dark">
       <Container>
-        <Navbar.Brand href="#home" style={font}>
+        <Navbar.Brand href="/" style={font}>
           커뮤니티
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -19,10 +29,10 @@ const Heading = () => {
             <Link
               to="/"
               style={{
-                textDecoration: 'none',
-                color: 'white',
+                textDecoration: "none",
+                color: "white",
                 fontFamily: "'Yeon Sung', cursive",
-                marginRight: '10px',
+                marginRight: "10px",
               }}
             >
               home
@@ -30,25 +40,49 @@ const Heading = () => {
             <Link
               to="/upload"
               style={{
-                textDecoration: 'none',
-                color: 'white',
-                marginRight: '10px',
+                textDecoration: "none",
+                color: "white",
+                marginRight: "10px",
+                fontFamily: "'Yeon Sung', cursive",
               }}
             >
               upload
             </Link>
-
+          </Nav>
+        </Navbar.Collapse>
+        <Navbar.Collapse className="justify-content-end">
+          <Link
+            to="/"
+            style={{
+              textDecoration: "none",
+              color: "white",
+              marginRight: "15px",
+              fontFamily: "'Yeon Sung', cursive",
+            }}
+          >
+            {user.displayName
+              ? `${user.displayName}님 접속중..`
+              : `로그인해주세요.`}
+          </Link>
+          {user.accessToken ? (
+            <Navbar.Text
+              onClick={logoutHandler}
+              style={{ color: "white", cursor: "pointer" }}
+            >
+              logout
+            </Navbar.Text>
+          ) : (
             <Link
               to="/login"
               style={{
-                textDecoration: 'none',
-                color: 'white',
-                marginRight: '10px',
+                textDecoration: "none",
+                color: "white",
+                fontFamily: "'Yeon Sung', cursive",
               }}
             >
               login
             </Link>
-          </Nav>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>
