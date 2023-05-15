@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LoginDiv } from '../../Style/UserCSS';
 
 import firebase from '../../firebase';
 
 import axios from 'axios';
-import Loading from '../assets/Loading';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -18,7 +17,7 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  const registerFunc = async (e) => {
+  const RegisterFunc = async (e) => {
     // setLoaded(true);
     e.preventDefault();
     if (!nameCheck) {
@@ -40,6 +39,7 @@ const Register = () => {
       displayName: name,
     });
     // console.log(createdUser.user);
+
     let body = {
       displayName: createdUser.user.multiFactor.user.displayName,
       email: createdUser.user.multiFactor.user.email,
@@ -55,6 +55,7 @@ const Register = () => {
       }
     });
   };
+
   const nameCheckHandler = (e) => {
     e.preventDefault();
     if (name === null) {
@@ -146,7 +147,7 @@ const Register = () => {
           }}
         />
         {/* disabled={loaded} */}
-        <button onClick={registerFunc}>가입신청</button>
+        <button onClick={RegisterFunc}>가입신청</button>
       </form>
     </LoginDiv>
   );
