@@ -19,7 +19,7 @@ const List = () => {
         console.log(err);
       });
   }, []);
-
+  console.log(postList);
   return (
     <ListDiv>
       {postList.map((post, i) => {
@@ -28,6 +28,7 @@ const List = () => {
             {/* post 클릭시 고유의 num page로 이동 */}
             <Link to={`/post/${post.postNum}`}>
               <p className="title">{post.title}</p>
+              <p className="auth">작성자 : {post.author.displayName}</p>
               <p>{post.content}</p>
             </Link>
           </ListItem>

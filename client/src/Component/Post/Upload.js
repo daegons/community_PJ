@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import { UploadDiv, UploadForm, UploadButtonDiv } from "../../Style/UploadCSS";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import ImageUpload from "./ImageUpload";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from 'react';
+import { UploadDiv, UploadForm, UploadButtonDiv } from '../../Style/UploadCSS';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import ImageUpload from './ImageUpload';
+import { useSelector } from 'react-redux';
 const Upload = () => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [image, setImage] = useState("");
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [image, setImage] = useState('');
 
   let navigate = useNavigate();
   const user = useSelector((state) => state.user);
@@ -16,16 +16,16 @@ const Upload = () => {
   //login페이지로 이동~~
   useEffect(() => {
     if (!user.accessToken) {
-      alert("가입회원만 글을 작성할 수 있습니다.");
-      navigate("/login");
+      alert('가입회원만 글을 작성할 수 있습니다.');
+      navigate('/login');
     }
   }, []);
 
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (title === "" || content === "") {
-      return alert("모든 항목을 채워주세요");
+    if (title === '' || content === '') {
+      return alert('모든 항목을 채워주세요');
     }
     let body = {
       title: title,
@@ -35,13 +35,13 @@ const Upload = () => {
     };
 
     axios
-      .post("/api/post/submit", body)
+      .post('/api/post/submit', body)
       .then((res) => {
         if (res.data.success) {
-          alert("글 작성이 완료되었습니다.✔");
-          navigate("/");
+          alert('글 작성이 완료되었습니다.✔');
+          navigate('/');
         } else {
-          alert("글 작성이 실패하였습니다.❌");
+          alert('글 작성이 실패하였습니다.❌');
         }
       })
       .catch((err) => {

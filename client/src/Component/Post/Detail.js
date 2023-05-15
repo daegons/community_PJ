@@ -5,11 +5,14 @@ import axios from 'axios';
 // import Loading from './../assets/Spinner';
 import Loading1 from '../assets/Loading';
 import { BtnDiv, Post, PostDiv } from '../../Style/PostDetailCSS';
+import { useSelector } from 'react-redux';
 
 const Detail = () => {
   const [postDetil, setPostDetail] = useState({});
   const [loaded, setLoaded] = useState(false);
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+  console.log(user);
   //현재 페이지 id 때문..
   const params = useParams();
   useEffect(() => {
@@ -32,10 +35,6 @@ const Detail = () => {
         console.log(err);
       });
   }, []);
-
-  useEffect(() => {
-    console.log(postDetil);
-  }, [postDetil]);
 
   const deleteHandler = () => {
     if (window.confirm('정말로 삭제하시겠습니까?')) {
@@ -68,6 +67,7 @@ const Detail = () => {
         <>
           <Post>
             <h2>{postDetil.title}</h2>
+            <h3>작성자 : {postDetil.author.displayName}</h3>
             {postDetil.image ? (
               <img
                 //배포하면 배포 환경에 맞게 주소 수정해야됨
@@ -80,16 +80,19 @@ const Detail = () => {
 
             <p>{postDetil.content}</p>
           </Post>
-          <BtnDiv>
-            <Link to={`/edit/${postDetil.postNum}`}>
-              <button className="edit">수정</button>
-            </Link>
-            <Link>
-              <button onClick={deleteHandler} className="delete">
-                삭제
-              </button>
-            </Link>
-          </BtnDiv>
+          {/* uid 값이 일치하면 수정 및 삭제 on */}
+          {user.uid === postDetil.author.uid && (
+            <BtnDiv>
+              <Link to={`/edit/${postDetil.postNum}`}>
+                <button className="edit">수정</button>
+              </Link>
+              <Link>
+                <button onClick={deleteHandler} className="delete">
+                  삭제
+                </button>
+              </Link>
+            </BtnDiv>
+          )}
         </>
       ) : (
         // <Loading /> //1스피너
