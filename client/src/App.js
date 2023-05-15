@@ -40,7 +40,7 @@ function App() {
 
   useEffect(() => {
     //signOut() firebase 로그아웃 시키는 함수
-    //firebase.auth().signOut();
+    firebase.auth().signOut();
   }, []);
 
   return (
