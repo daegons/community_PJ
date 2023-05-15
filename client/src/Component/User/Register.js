@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { LoginDiv } from '../../Style/UserCSS';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { LoginDiv } from "../../Style/UserCSS";
 
-import firbase from '../../firebase';
+import firebase from "../../firebase";
 
-import axios from 'axios';
+import axios from "axios";
 
 const Register = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordCF, setPasswordCF] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordCF, setPasswordCF] = useState("");
   const [loaded, setLoaded] = useState(false);
 
   const navigate = useNavigate();
@@ -19,13 +19,13 @@ const Register = () => {
     setLoaded(true);
     e.preventDefault();
     if (!(name && email && password && passwordCF)) {
-      return alert('빠진 부분이 없나 확인해주세요.');
+      return alert("빠진 부분이 없나 확인해주세요.");
     }
     if (password !== passwordCF) {
-      return alert('비밀번호 확인 불일치');
+      return alert("비밀번호 확인 불일치");
     }
     //파이어 베이스 인증시간이 걸려서.. 위에 promise로 async await 걸어줌
-    const createdUser = await firbase
+    const createdUser = await firebase
       .auth()
       .createUserWithEmailAndPassword(email, password);
 
@@ -38,14 +38,14 @@ const Register = () => {
       email: createdUser.user.multiFactor.user.email,
       uid: createdUser.user.multiFactor.user.uid,
     };
-    axios.post('/api/user/register', body).then((res) => {
+    axios.post("/api/user/register", body).then((res) => {
       setLoaded(false);
       if (res.data.success) {
         //회원가입 성공시
-        navigate('/login');
+        navigate("/login");
       } else {
         //회원가입 실패시
-        return alert('회원가입 실패했어요..');
+        return alert("회원가입 실패했어요..");
       }
     });
   };
