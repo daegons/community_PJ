@@ -1,17 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-let initialState = {
-  displayName: "",
-  uid: "",
-  accessToken: "",
-};
-
 export const userSlice = createSlice({
   name: "user",
-  initialState,
+  initialState: {
+    displayName: "",
+    uid: "",
+    accessToken: "",
+  },
   reducers: {
-    loginUser: (state) => {
-      //
+    loginUser: (state, action) => {
+      state.displayName = action.payload.displayName;
+      state.uid = action.payload.uid;
+      state.accessToken = action.payload.accessToken;
     },
     clearUser: (state) => {
       state.displayName = "";
