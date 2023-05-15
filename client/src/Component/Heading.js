@@ -13,8 +13,8 @@ const Heading = () => {
   const navigate = useNavigate();
 
   const logoutHandler = () => {
+    alert(`${user.displayName}님 안녕히가세요.`);
     firebase.auth().signOut();
-    alert("로그아웃 되었습니다.");
     navigate("/");
   };
   return (

@@ -13,11 +13,13 @@ const Login = () => {
 
   const singInFunc = async (e) => {
     e.preventDefault();
+
     if (!(email && password)) {
       return alert("빈칸을 채워주세요.");
     }
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
+      alert(`환영합니다.`);
       navigate("/");
     } catch (err) {
       if (err.code === "auth/user-not-found") {
@@ -28,7 +30,6 @@ const Login = () => {
         seteRrorMsg("로그인이 실패하였습니다.");
       }
     }
-    alert("로그인 되었습니다.");
   };
 
   //errorMsg에 변화 있을 때 3초뒤에 에러 메시지 초기화
