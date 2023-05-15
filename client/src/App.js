@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
 import "./App.css";
 //reduce
 import { useSelector, useDispatch } from "react-redux";
@@ -13,14 +14,34 @@ import List from "./Component/Post/List";
 import Edit from "./Component/Post/Edit";
 import Login from "./Component/User/Login";
 import Register from "./Component/User/Register";
-import { useEffect } from "react";
 
 function App() {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   useEffect(() => {
     //onAuthStateChanged 사용자의 상태 변화에 따라 추적 함수..
-    firebase.auth.onAuthStateChanged(() => {});
+    firebase.auth().onAuthStateChanged((userInfo) => {
+      //사용자 로그아웃 or 로그인하지 않은 상태라면 -> null값
+      //로그인했다면 로그인한 데이터를 보여줌
+      // console.log("유저정보 : ", userInfo);
+      if (userInfo !== null) {
+        dispatch(loginUser(userInfo.multiFactor.user));
+      } else {
+        dispatch(clearUser());
+      }
+    });
   }, []);
-  useEffect(() => {}, []);
+
+  useEffect(() => {
+    console.log("====================================");
+    console.log("user : ", user);
+    console.log("====================================");
+  }, [user]);
+
+  useEffect(() => {
+    //signOut() firebase 로그아웃 시키는 함수
+    //firebase.auth().signOut();
+  }, []);
 
   return (
     <>
