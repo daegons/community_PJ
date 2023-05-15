@@ -3,9 +3,9 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 //아래 두개 스피너
 // import Loading from './../assets/Spinner';
-import Loading1 from '../assets/Loading';
 import { BtnDiv, Post, PostDiv } from '../../Style/PostDetailCSS';
 import { useSelector } from 'react-redux';
+import Loading from '../assets/Loading';
 
 const Detail = () => {
   const [postDetil, setPostDetail] = useState({});
@@ -96,7 +96,7 @@ const Detail = () => {
         </>
       ) : (
         // <Loading /> //1스피너
-        <Loading1 /> //2스피너
+        <Loading /> //2스피너
       )}
     </PostDiv>
   );

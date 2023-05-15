@@ -5,6 +5,7 @@ import { LoginDiv } from '../../Style/UserCSS';
 import firebase from '../../firebase';
 
 import axios from 'axios';
+import Loading from '../assets/Loading';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -38,14 +39,13 @@ const Register = () => {
     await createdUser.user.updateProfile({
       displayName: name,
     });
-    console.log(createdUser.user);
+    // console.log(createdUser.user);
     let body = {
       displayName: createdUser.user.multiFactor.user.displayName,
       email: createdUser.user.multiFactor.user.email,
       uid: createdUser.user.multiFactor.user.uid,
     };
     axios.post('/api/user/register', body).then((res) => {
-      // setLoaded(false);
       if (res.data.success) {
         //회원가입 성공시
         navigate('/login');
@@ -55,7 +55,6 @@ const Register = () => {
       }
     });
   };
-
   const nameCheckHandler = (e) => {
     e.preventDefault();
     if (name === null) {
