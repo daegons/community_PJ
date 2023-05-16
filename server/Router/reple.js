@@ -6,10 +6,11 @@ const { Reple } = require("../Model/Reple");
 const { User } = require("../Model/User");
 
 router.post("/submit", (req, res) => {
-  let temp = {};
-  User.findOne({
-    uid: req.body.uid,
-  })
+  let temp = {
+    reple: req.body.reple,
+    postId: req.body.postId,
+  };
+  User.findOne({ uid: req.body.uid })
     .exec()
     .then((userInfo) => {
       temp.author = userInfo._id;

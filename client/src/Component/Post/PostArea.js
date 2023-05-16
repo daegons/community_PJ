@@ -37,7 +37,7 @@ const PostArea = () => {
       {loaded ? (
         <>
           <Detail postDetil={postDetil} />
-          <RepleArea />
+          <RepleArea postId={postDetil._id} />
         </>
       ) : (
         <Loading />

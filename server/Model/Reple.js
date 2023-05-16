@@ -11,7 +11,7 @@ const repleSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
     },
   },
-  { collection: "Reples" }
+  { collection: "reples" }
 );
 const Reple = mongoose.model("Reple", repleSchema);
 
