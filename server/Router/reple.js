@@ -1,15 +1,15 @@
-const express = require("express");
-const router = express.Router();
-
-const { Post } = require("../Model/Post");
-const { Reple } = require("../Model/Reple");
-const { User } = require("../Model/User");
+var express = require("express");
+var router = express.Router();
+const { Post } = require("../Model/Post.js");
+const { Reple } = require("../Model/Reple.js");
+const { User } = require("../Model/User.js");
 
 router.post("/submit", (req, res) => {
   let temp = {
     reple: req.body.reple,
     postId: req.body.postId,
   };
+
   User.findOne({ uid: req.body.uid })
     .exec()
     .then((userInfo) => {

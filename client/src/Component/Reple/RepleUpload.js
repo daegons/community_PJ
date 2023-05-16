@@ -15,11 +15,12 @@ const RepleUpload = (props) => {
     // console.log(user.uid);
     // console.log(props.postId);
     let body = {
-      reple: reple,
+      //body 전체 정상 입력
+      reple: reple, //댓글 입력한 값 정상 입력
       uid: user.uid, //aAyWsFeETnbFMV3k4xB6fsw4c6V2 이런식
       postId: props.postId, //646316440e622de48df366ec이런식
     };
-
+    console.log(body);
     axios.post("/api/reple/submit", body).then((response) => {
       if (response.data.success) {
         alert("댓글 작성이 성공하였습니다.");
