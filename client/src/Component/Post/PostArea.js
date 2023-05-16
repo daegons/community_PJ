@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Detail from "./Detail";
 import { useParams } from "react-router-dom";
 import Loading from "./../assets/Loading";
+import RepleArea from "../Reple/RepleArea";
 
 const PostArea = () => {
   const [postDetil, setPostDetail] = useState({});
@@ -31,7 +32,18 @@ const PostArea = () => {
       });
   }, []);
 
-  return <div>{loaded ? <Detail postDetil={postDetil} /> : <Loading />}</div>;
+  return (
+    <div>
+      {loaded ? (
+        <>
+          <Detail postDetil={postDetil} />
+          <RepleArea />
+        </>
+      ) : (
+        <Loading />
+      )}
+    </div>
+  );
 };
 
 export default PostArea;
