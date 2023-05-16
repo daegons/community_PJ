@@ -1,6 +1,6 @@
-import React from "react";
-import RepleUpload from "./RepleUpload";
-import RepleList from "./RepleList";
+import React from 'react';
+import RepleUpload from './RepleUpload';
+import RepleList from './RepleList';
 
 const RepleArea = (props) => {
   //646316440e622de48df366ec 이런식으로 정상 _uid
@@ -8,7 +8,7 @@ const RepleArea = (props) => {
   return (
     <div>
       <RepleUpload postId={props.postId} />
-      <RepleList />
+      <RepleList postId={props.postId} />
     </div>
   );
 };
