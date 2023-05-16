@@ -13,8 +13,7 @@ const PostArea = () => {
 
   useEffect(() => {
     // console.log(params.postNum); //post id값 ex)1
-    const body = {
-      //let body =
+    let body = {
       postNum: params.postNum,
     };
     axios
@@ -31,7 +30,8 @@ const PostArea = () => {
         console.log(err);
       });
   }, []);
-
+  //646316440e622de48df366ec 이런식으로 정상으로 나옴
+  // console.log(postDetil._id);
   return (
     <div>
       {loaded ? (

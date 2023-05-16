@@ -5,37 +5,34 @@ import { useSelector } from "react-redux";
 const RepleUpload = (props) => {
   const [reple, setReple] = useState("");
   const user = useSelector((state) => state.user);
-  console.log(user);
   const submitHandler = (e) => {
     e.preventDefault();
-
-    if (reple === null) {
+    // console.log(reple); //input 태그 입력값
+    if (!reple) {
       return alert("댓글 내용을 채워주세요.");
     }
 
+    // console.log(user.uid);
+    // console.log(props.postId);
     let body = {
       reple: reple,
-      uid: user.uid,
-      postId: props.postId,
+      uid: user.uid, //aAyWsFeETnbFMV3k4xB6fsw4c6V2 이런식
+      postId: props.postId, //646316440e622de48df366ec이런식
     };
 
-    axios
-      .post("/api/reple/submit", body)
-      .then((res) => {
-        if (res.data.success) {
-          alert("댓글 작성이 완료되었습니다.");
-        } else {
-          alert("댓글 작성에 실패하였습니다.");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    axios.post("/api/reple/submit", body).then((response) => {
+      if (response.data.success) {
+        alert("댓글 작성이 성공하였습니다.");
+        window.location.reload();
+      } else {
+        alert("댓글 작성에 실패하였습니다.");
+      }
+    });
   };
 
   return (
     <div>
-      <form action="">
+      <form>
         <input
           type="text"
           value={reple}

@@ -1,9 +1,9 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 //아래 두개 스피너
 // import Loading from './../assets/Spinner';
 import { BtnDiv, Post, PostDiv } from "../../Style/PostDetailCSS";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 const Detail = (props) => {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ const Detail = (props) => {
         });
     }
   };
-  console.log(props);
+  // console.log(props);
   return (
     <PostDiv>
       <Post>
