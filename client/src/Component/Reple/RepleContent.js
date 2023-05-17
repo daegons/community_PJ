@@ -8,6 +8,7 @@ const RepleContent = (props) => {
   // console.log(user.uid);
   // console.log(props.list.author.uid);
   //모달 작업
+  //useOnClickOutside 반응형 훅
   //1. 불러와서
   const ref = useRef();
   //2 setModal로 변경 후 맨아래 작업
