@@ -1,20 +1,20 @@
-import { Route, Routes } from "react-router-dom";
-import { useEffect } from "react";
-import "./App.css";
+import { Route, Routes } from 'react-router-dom';
+import { useEffect } from 'react';
+import './App.css';
 //reduce
-import { useDispatch } from "react-redux";
-import { clearUser, loginUser } from "./Reducer/userSlice";
+import { useDispatch } from 'react-redux';
+import { clearUser, loginUser } from './Reducer/userSlice';
 //firebase
-import firebase from "./firebase";
+import firebase from './firebase';
 
-import Heading from "./Component/Heading";
-import Upload from "./Component/Post/Upload";
-import List from "./Component/Post/List";
-import Edit from "./Component/Post/Edit";
-import Login from "./Component/User/Login";
-import Register from "./Component/User/Register";
-import PostArea from "./Component/Post/PostArea";
-import MyPage from "./Component/User/MyPage";
+import Heading from './Component/Heading';
+import Upload from './Component/Post/Upload';
+import Edit from './Component/Post/Edit';
+import Login from './Component/User/Login';
+import Register from './Component/User/Register';
+import PostArea from './Component/Post/PostArea';
+import MyPage from './Component/User/MyPage';
+import MainPage from './Component/MainPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -49,7 +49,7 @@ function App() {
     <>
       <Heading />
       <Routes>
-        <Route path="/" element={<List />} />
+        <Route path="/" element={<MainPage />} />
         {/* mongoose를 통해 post, Reple 구현 */}
         <Route path="/upload" element={<Upload />} />
         <Route path="/post/:postNum" element={<PostArea />} />
