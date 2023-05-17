@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { RepleContentDiv, RepleUploadDiv } from "../../Style/RepleCSS.js";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import Avatar from "react-avatar";
 
 const RepleContent = (props) => {
   const [modal, setModal] = useState(false);
@@ -74,6 +75,15 @@ const RepleContent = (props) => {
     <div>
       <RepleContentDiv>
         <div className="author">
+          <Avatar
+            style={{
+              background: "rgb(232, 232, 232)",
+              border: "1px solid rgb(210, 210, 210)",
+            }}
+            size="30"
+            round={true}
+            src={props.list.author.photoURL}
+          />
           <p>{props.list.author.displayName}</p>
           {props.list.author.uid === user.uid && (
             <div className="modalControl">

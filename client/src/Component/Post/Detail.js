@@ -3,12 +3,13 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 // import Loading from './../assets/Spinner';
 import { BtnDiv, Post, PostDiv } from "../../Style/PostDetailCSS";
 import { useSelector } from "react-redux";
+import Avatar from "react-avatar";
 import axios from "axios";
 
 const Detail = (props) => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
-  // console.log(user);
+  // console.log(user.photoURL);
   //현재 페이지 id 때문..
   const params = useParams();
 
@@ -36,8 +37,19 @@ const Detail = (props) => {
   return (
     <PostDiv>
       <Post>
-        <h2>{props.postDetil.title}</h2>
-        <h3>작성자 : {props.postDetil.author.displayName}</h3>
+        <h1>{props.postDetil.title}</h1>
+        <p className="author">
+          <Avatar
+            style={{
+              background: "rgb(232, 232, 232)",
+              border: "1px solid rgb(210, 210, 210)",
+            }}
+            size="40"
+            round={true}
+            src={user.photoURL}
+          />
+          작성자 : {props.postDetil.author.displayName}
+        </p>
         {props.postDetil.image ? (
           <img
             //배포하면 배포 환경에 맞게 주소 수정해야됨

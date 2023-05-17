@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
   {
@@ -6,9 +6,11 @@ const userSchema = new mongoose.Schema(
     email: String,
     displayName: String,
     uid: String,
+    //프로필 img 추가
+    photoURL: String,
   },
-  { collection: 'users' }
+  { collection: "users" }
 );
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = { User };
