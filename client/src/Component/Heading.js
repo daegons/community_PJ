@@ -65,12 +65,32 @@ const Heading = () => {
               : `로그인해주세요.`}
           </Link>
           {user.accessToken ? (
-            <Navbar.Text
-              onClick={logoutHandler}
-              style={{ color: "white", cursor: "pointer" }}
-            >
-              logout
-            </Navbar.Text>
+            <>
+              <br />
+              <Navbar.Text
+                onClick={() => {}}
+                style={{ color: "white", cursor: "pointer" }}
+              >
+                <Link
+                  to="/mypage"
+                  style={{
+                    textDecoration: "none",
+                    color: "white",
+                    marginRight: "15px",
+                    fontFamily: "'Yeon Sung', cursive",
+                  }}
+                >
+                  MyPage
+                </Link>
+              </Navbar.Text>
+              <br />
+              <Navbar.Text
+                onClick={logoutHandler}
+                style={{ color: "white", cursor: "pointer" }}
+              >
+                logout
+              </Navbar.Text>
+            </>
           ) : (
             <Link
               to="/login"

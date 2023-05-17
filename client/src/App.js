@@ -14,6 +14,7 @@ import Edit from "./Component/Post/Edit";
 import Login from "./Component/User/Login";
 import Register from "./Component/User/Register";
 import PostArea from "./Component/Post/PostArea";
+import MyPage from "./Component/User/MyPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -61,7 +62,8 @@ function App() {
         1. 검색기능 -(post관련)
         2. 유저프로필 이미지 & 이미지 변경
         3. 정렬 최신 / 인기 - (post관련)
-        */}
+      */}
+        <Route path="/mypage" element={<MyPage />} />
       </Routes>
     </>
   );
