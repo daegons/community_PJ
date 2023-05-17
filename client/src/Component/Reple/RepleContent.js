@@ -21,7 +21,7 @@ const RepleContent = (props) => {
   const modalHandler = () => {
     setModal(true);
   };
-
+  // console.log(props.list._id);
   const submitHandler = (e) => {
     e.preventDefault();
 
@@ -29,6 +29,7 @@ const RepleContent = (props) => {
       uid: user.uid,
       reple: reple,
       postId: props.list.postId,
+      repleId: props.list._id,
     };
     axios.post("/api/reple/edit", body).then((res) => {
       if (res.data.success) {
@@ -48,6 +49,27 @@ const RepleContent = (props) => {
     e.preventDefault();
     setEdit(false);
   };
+  const deleteHandler = () => {
+    if (window.confirm("정말로 삭제하시겠습니까?")) {
+      // console.log(params.postNum); //post id값 ex)1
+      let body = {
+        //let body =
+        repleId: props.list._id,
+        postId: props.list.postId,
+      };
+      axios
+        .post("/api/reple/delete", body)
+        .then((res) => {
+          if (res.data.success) {
+            alert("댓글이 삭제되었습니다.");
+            window.location.reload();
+          }
+        })
+        .catch((err) => {
+          alert("댓글이 삭제 실패되었습니다.");
+        });
+    }
+  };
   return (
     <div>
       <RepleContentDiv>
@@ -60,7 +82,9 @@ const RepleContent = (props) => {
                 //
                 <div className="modalDiv" ref={ref}>
                   <p onClick={editHandler}>수정</p>
-                  <p className="delete">삭제</p>
+                  <p className="delete" onClick={deleteHandler}>
+                    삭제
+                  </p>
                 </div>
               )}
             </div>

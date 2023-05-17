@@ -1,10 +1,10 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-const { Post } = require('../Model/Post.js');
-const { Reple } = require('../Model/Reple.js');
-const { User } = require('../Model/User.js');
+const { Post } = require("../Model/Post.js");
+const { Reple } = require("../Model/Reple.js");
+const { User } = require("../Model/User.js");
 
-router.post('/submit', (req, res) => {
+router.post("/submit", (req, res) => {
   let temp = {
     reple: req.body.reple,
     postId: req.body.postId,
@@ -33,9 +33,9 @@ router.post('/submit', (req, res) => {
     });
 });
 
-router.post('/getReple', (req, res) => {
+router.post("/getReple", (req, res) => {
   Reple.find({ postId: req.body.postId })
-    .populate('author')
+    .populate("author")
     .exec()
     .then((repleInfo) => {
       return res.status(200).json({
@@ -47,6 +47,53 @@ router.post('/getReple', (req, res) => {
       return res.status(400).json({
         success: false,
       });
+    });
+});
+
+router.post("/edit", (req, res) => {
+  let temp = {
+    postId: req.body.postId,
+    reple: req.body.reple,
+    uid: req.body.uid,
+    // repleId: req.body._id,
+  };
+  Reple.findOneAndUpdate(
+    {
+      _id: req.body.repleId,
+    },
+    { $set: temp }
+  )
+    .exec()
+    .then(() => {
+      return res.status(200).json({ success: true });
+    })
+    .catch(() => {
+      return res.status(400).json({ success: false });
+    });
+});
+
+router.post("/delete", (req, res) => {
+  let temp = {
+    postId: req.body.postId,
+    repleId: req.body._id,
+    // repleId: req.body._id,
+  };
+  Reple.deleteOne({ _id: req.body.repleId })
+    .exec()
+    .then(() => {
+      Post.findOneAndUpdate(
+        {
+          _id: req.body.postId,
+        },
+        { $inc: { repleNum: -1 } }
+      )
+        .exec()
+        .then(() => {
+          return res.status(200).json({ success: true });
+        });
+    })
+    .catch(() => {
+      return res.status(400).json({ success: false });
     });
 });
 
