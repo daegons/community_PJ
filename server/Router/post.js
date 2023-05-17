@@ -1,14 +1,14 @@
-const express = require("express");
+const express = require('express');
 
 const router = express.Router();
 
-const { Post } = require("../Model/Post");
-const { Counter } = require("../Model/Counter");
-const { User } = require("../Model/User");
+const { Post } = require('../Model/Post');
+const { Counter } = require('../Model/Counter');
+const { User } = require('../Model/User');
 
-const setUpload = require("../Util/upload");
+const setUpload = require('../Util/upload');
 
-router.post("/submit", (req, res) => {
+router.post('/submit', (req, res) => {
   //temp에 title,content 들어있음..
   let temp = {
     title: req.body.title,
@@ -16,7 +16,7 @@ router.post("/submit", (req, res) => {
     image: req.body.image,
   };
 
-  Counter.findOne({ name: "counter" })
+  Counter.findOne({ name: 'counter' })
     .exec()
     .then((counter) => {
       temp.postNum = counter.postNum;
@@ -27,7 +27,7 @@ router.post("/submit", (req, res) => {
           const CommunityPost = new Post(temp);
           CommunityPost.save().then(() => {
             Counter.updateOne(
-              { name: "counter" },
+              { name: 'counter' },
               { $inc: { postNum: 1 } }
             ).then(() => {
               res.status(200).json({ success: true });
@@ -41,9 +41,9 @@ router.post("/submit", (req, res) => {
     });
 });
 
-router.post("/list", (req, res) => {
+router.post('/list', (req, res) => {
   Post.find()
-    .populate("author")
+    .populate('author')
     .exec()
     .then((doc) => {
       res.status(200).json({ success: true, postList: doc });
@@ -54,10 +54,10 @@ router.post("/list", (req, res) => {
     });
 });
 
-router.post("/detail", (req, res) => {
+router.post('/detail', (req, res) => {
   // console.log(req.body.postNum); //post id 출력
   Post.findOne({ postNum: Number(req.body.postNum) })
-    .populate("author")
+    .populate('author')
     .exec()
     .then((doc) => {
       console.log(doc);
@@ -69,7 +69,7 @@ router.post("/detail", (req, res) => {
     });
 });
 
-router.post("/edit", (req, res) => {
+router.post('/edit', (req, res) => {
   let temp = {
     title: req.body.title,
     content: req.body.content,
@@ -85,7 +85,7 @@ router.post("/edit", (req, res) => {
     });
 });
 
-router.post("/delete", (req, res) => {
+router.post('/delete', (req, res) => {
   // console.log(req.body.postNum); //post id 출력
   Post.deleteOne({ postNum: Number(req.body.postNum) })
     .exec()
@@ -123,8 +123,8 @@ router.post('/image/upload', (req, res) => {
 */
 
 router.post(
-  "/image/upload",
-  setUpload("react-project/post"),
+  '/image/upload',
+  setUpload('react-project/post'),
   (req, res, next) => {
     res.status(200).json({ success: true, filePath: res.req.file.location });
   }

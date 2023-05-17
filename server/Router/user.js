@@ -3,6 +3,8 @@ const router = express.Router();
 
 const { Counter } = require('../Model/Counter');
 const { User } = require('../Model/User');
+const setUpload = require('../Util/upload');
+
 router.post('/register', (req, res) => {
   let tmep = req.body;
   Counter.findOne({ name: 'counter' })
@@ -38,4 +40,27 @@ router.post('/namecheck', (req, res) => {
       res.status(400).json({ success: false });
     });
 });
+
+router.post(
+  '/profile/image',
+  setUpload('react-project/user'),
+  (req, res, next) => {
+    res.status(200).json({ success: true, filePath: res.req.file.location });
+  }
+);
+
+router.post('/profile/update', (req, res) => {
+  let temp = {
+    photoURL: req.body.photoURL,
+  };
+  User.updateOne({ uid: req.body.uid }, { $set: temp })
+    .exec()
+    .then(() => {
+      res.status(200).json({ success: true });
+    })
+    .catch((err) => {
+      res.status(400).json({ success: false });
+    });
+});
+
 module.exports = router;
