@@ -1,12 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-import { RepleContentDiv } from "../../Style/RepleCSS.js";
+import { RepleContentDiv, RepleUploadDiv } from "../../Style/RepleCSS.js";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 const RepleContent = (props) => {
   const [modal, setModal] = useState(false);
+  const [edit, setEdit] = useState(false);
+  const [reple, setReple] = useState(props.list.reple);
   const user = useSelector((state) => state.user);
   // console.log(user.uid);
   // console.log(props.list.author.uid);
+
   //모달 작업
   //useOnClickOutside 반응형 훅
   //1. 불러와서
@@ -18,7 +22,32 @@ const RepleContent = (props) => {
     setModal(true);
   };
 
-  // console.log(props.list);
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    let body = {
+      uid: user.uid,
+      reple: reple,
+      postId: props.list.postId,
+    };
+    axios.post("/api/reple/edit", body).then((res) => {
+      if (res.data.success) {
+        alert("댓글 수정 완료되었습니다.");
+      } else {
+        alert("댓글 수정 오류..");
+      }
+      return window.location.reload();
+    });
+  };
+
+  const editHandler = () => {
+    setEdit(true);
+    setModal(false);
+  };
+  const editCancelHandler = (e) => {
+    e.preventDefault();
+    setEdit(false);
+  };
   return (
     <div>
       <RepleContentDiv>
@@ -30,14 +59,32 @@ const RepleContent = (props) => {
               {modal && (
                 //
                 <div className="modalDiv" ref={ref}>
-                  <p>수정</p>
+                  <p onClick={editHandler}>수정</p>
                   <p className="delete">삭제</p>
                 </div>
               )}
             </div>
           )}
         </div>
-        <p>{props.list.reple}</p>
+        {edit ? (
+          <RepleUploadDiv>
+            <form>
+              <input
+                type="text"
+                value={reple}
+                onChange={(e) => {
+                  setReple(e.currentTarget.value);
+                }}
+              />
+              <button onClick={submitHandler}>수정 완료</button>
+            </form>
+            <div className="cancel">
+              <button onClick={editCancelHandler}>취소</button>
+            </div>
+          </RepleUploadDiv>
+        ) : (
+          <p>{props.list.reple}</p>
+        )}
       </RepleContentDiv>
     </div>
   );
