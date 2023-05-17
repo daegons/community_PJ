@@ -73,11 +73,6 @@ router.post("/edit", (req, res) => {
 });
 
 router.post("/delete", (req, res) => {
-  let temp = {
-    postId: req.body.postId,
-    repleId: req.body._id,
-    // repleId: req.body._id,
-  };
   Reple.deleteOne({ _id: req.body.repleId })
     .exec()
     .then(() => {

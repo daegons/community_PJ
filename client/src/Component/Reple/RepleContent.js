@@ -28,8 +28,8 @@ const RepleContent = (props) => {
     let body = {
       uid: user.uid,
       reple: reple,
-      postId: props.list.postId,
       repleId: props.list._id,
+      postId: props.list.postId,
     };
     axios.post("/api/reple/edit", body).then((res) => {
       if (res.data.success) {
