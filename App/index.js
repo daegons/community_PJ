@@ -1,21 +1,21 @@
 //require바닥에 ...뜨는거 관련 https://hini7.tistory.com/226#toc-%ED%98%B8%ED%99%98
-const express = require('express');
-const path = require('path');
-const mongoose = require('mongoose');
+const express = require("express");
+const path = require("path");
+const mongoose = require("mongoose");
 const app = express();
 const port = process.env.PORT || 5000;
-const config = require('./config/key');
+const config = require("./server/config/key");
 
-app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(express.static(path.join(__dirname, "./client/build")));
 //이미지 사용 경로 지정
-app.use('/image', express.static('./image'));
+app.use("/image", express.static("./image"));
 //body안읽히는거 아래 추가해서 해결
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //post.js 분리시킨거 사용
-app.use('/api/post', require('./Router/post'));
-app.use('/api/user', require('./Router/user'));
-app.use('/api/reple', require('./Router/reple'));
+app.use("/api/post", require("./server/Router/post"));
+app.use("/api/user", require("./server//Router/user"));
+app.use("/api/reple", require("./server//Router/reple"));
 
 //서버 열고
 app.listen(port, () => {
@@ -24,7 +24,7 @@ app.listen(port, () => {
     .connect(config.mongoURI) //정상 연결 되면 .then으로...
     .then(() => {
       console.log(`Example app listening on port ${port}`);
-      console.log('몽고DB와 연결중..');
+      console.log("몽고DB와 연결중..");
     }) //연결 불가시 .catch로....
     .catch((err) => {
       console.log(err);
@@ -34,10 +34,10 @@ app.listen(port, () => {
 
 //req 클라 -> 서버에 보내는 요청
 //res 서버 -> 클라에 보내는 응답
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 //  * = 은 모든 것을 의미함
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
