@@ -6,12 +6,23 @@ import { useSelector } from "react-redux";
 import Avatar from "react-avatar";
 import axios from "axios";
 
+import moment from "moment";
+import "moment/locale/ko";
+
 const Detail = (props) => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   // console.log(user.photoURL);
   //현재 페이지 id 때문..
   const params = useParams();
+
+  const SetTime = (a, b) => {
+    if (a !== b) {
+      return moment(b).format("YYYY년 MMMM Do hh:mm a") + "(수정됨)";
+    } else {
+      return moment(a).format("YYYY년 MMMM Do hh:mm a");
+    }
+  };
 
   const deleteHandler = () => {
     if (window.confirm("정말로 삭제하시겠습니까?")) {
@@ -37,8 +48,8 @@ const Detail = (props) => {
   return (
     <PostDiv>
       <Post>
-        <h1>{props.postDetil.title}</h1>
-        <p className="author">
+        <h2>{props.postDetil.title}</h2>
+        <div className="author">
           <Avatar
             style={{
               background: "rgb(232, 232, 232)",
@@ -49,7 +60,10 @@ const Detail = (props) => {
             src={user.photoURL}
           />
           작성자 : {props.postDetil.author.displayName}
-        </p>
+          <p className="time">
+            {SetTime(props.postDetil.createdAt, props.postDetil.updatedAt)}
+          </p>
+        </div>
         {props.postDetil.image ? (
           <img
             //배포하면 배포 환경에 맞게 주소 수정해야됨

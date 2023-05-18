@@ -1,7 +1,8 @@
-import React from 'react';
-import RepleUpload from './RepleUpload';
-import RepleList from './RepleList';
-import { useSelector } from 'react-redux';
+import React from "react";
+import RepleUpload from "./RepleUpload";
+import RepleList from "./RepleList";
+import { useSelector } from "react-redux";
+import { RepleAreaDiv } from "../../Style/RepleCSS";
 
 const RepleArea = (props) => {
   const user = useSelector((state) => state.user);
@@ -9,11 +10,11 @@ const RepleArea = (props) => {
   // console.log(props.postId);
   console.log(user);
   return (
-    <div>
+    <RepleAreaDiv>
       {user.accessToken && <RepleUpload postId={props.postId} />}
 
       <RepleList postId={props.postId} />
-    </div>
+    </RepleAreaDiv>
   );
 };
 

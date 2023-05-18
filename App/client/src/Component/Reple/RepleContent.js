@@ -4,6 +4,9 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import Avatar from "react-avatar";
 
+import moment from "moment";
+import "moment/locale/ko";
+
 const RepleContent = (props) => {
   const [modal, setModal] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -11,6 +14,14 @@ const RepleContent = (props) => {
   const user = useSelector((state) => state.user);
   // console.log(user.uid);
   // console.log(props.list.author.uid);
+
+  const SetTime = (a, b) => {
+    if (a !== b) {
+      return moment(b).format("YYYY년 MMMM Do, hh:mm a") + "(수정됨)";
+    } else {
+      return moment(a).format("YYYY년 MMMM Do, hh:mm a");
+    }
+  };
 
   //모달 작업
   //useOnClickOutside 반응형 훅
@@ -72,9 +83,9 @@ const RepleContent = (props) => {
     }
   };
   return (
-    <div>
-      <RepleContentDiv>
-        <div className="author">
+    <RepleContentDiv>
+      <div className="author">
+        <div className="userInfo">
           <Avatar
             style={{
               background: "rgb(232, 232, 232)",
@@ -85,42 +96,45 @@ const RepleContent = (props) => {
             src={props.list.author.photoURL}
           />
           <p>{props.list.author.displayName}</p>
-          {props.list.author.uid === user.uid && (
-            <div className="modalControl">
-              <span onClick={modalHandler}>...</span>
-              {modal && (
-                //
-                <div className="modalDiv" ref={ref}>
-                  <p onClick={editHandler}>수정</p>
-                  <p className="delete" onClick={deleteHandler}>
-                    삭제
-                  </p>
-                </div>
-              )}
-            </div>
-          )}
         </div>
-        {edit ? (
-          <RepleUploadDiv>
-            <form>
-              <input
-                type="text"
-                value={reple}
-                onChange={(e) => {
-                  setReple(e.currentTarget.value);
-                }}
-              />
-              <button onClick={submitHandler}>수정 완료</button>
-            </form>
-            <div className="cancel">
-              <button onClick={editCancelHandler}>취소</button>
-            </div>
-          </RepleUploadDiv>
-        ) : (
-          <p>{props.list.reple}</p>
+        {props.list.author.uid === user.uid && (
+          <div className="modalControl">
+            <span onClick={modalHandler}>...</span>
+            {modal && (
+              //
+              <div className="modalDiv" ref={ref}>
+                <p onClick={editHandler}>수정</p>
+                <p className="delete" onClick={deleteHandler}>
+                  삭제
+                </p>
+              </div>
+            )}
+          </div>
         )}
-      </RepleContentDiv>
-    </div>
+      </div>
+      <p className="time">
+        {SetTime(props.list.createdAt, props.list.updatedAt)}
+      </p>
+      {edit ? (
+        <RepleUploadDiv>
+          <form>
+            <input
+              type="text"
+              value={reple}
+              onChange={(e) => {
+                setReple(e.currentTarget.value);
+              }}
+            />
+            <button onClick={submitHandler}>수정 완료</button>
+          </form>
+          <div className="cancel">
+            <button onClick={editCancelHandler}>취소</button>
+          </div>
+        </RepleUploadDiv>
+      ) : (
+        <p style={{ fontFamily: "Nanum Pen Script" }}>{props.list.reple}</p>
+      )}
+    </RepleContentDiv>
   );
 };
 
